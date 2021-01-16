@@ -19,7 +19,3 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     // alert('updated from background ' + changeInfo.url);
   }
 });
-
-// chrome.tabs.executeScript(tab.ib, {
-//   file: 'inject.js'
-// });
