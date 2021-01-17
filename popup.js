@@ -70,16 +70,13 @@ var addEntries = function(results){
 
 
 
-    var html = '<li class="result" href="'+value.fact_url+'"+><p class="time_statement">At second '+key +': <span>'+value.statement + ' </span><br><p class="rating">Rating: <span>'+value.rating+'</p></li>'
+    var html = '<li> <a class="result" id="'+key+'" href='+value.fact_url+'"+><p class="time_statement">At second '+key +': <span>'+value.statement + ' </span><br><p class="rating">Rating: <span>'+value.rating+'</p></a></li>'
 
-    newHtml = html.replace('%time%,', key)
-    newHtml = newHtml.replace('%statement%,',value.statement)
-    newHtml = newHtml.replace('%rating%,',value.rating)
+    
     document.querySelector('.res_list').insertAdjacentHTML('beforeend', html)
     // alert (value.statement+"--------------------"+html)
     // document.querySelector('.res_list').appendChild('beforeend', newHtml);
   } 
-  alert(value.fact_url)
   
   // alert(document.querySelector('.res_list').html(newHtml))
 }

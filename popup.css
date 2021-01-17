@@ -43,6 +43,10 @@ span {
 li {
   text-align: left;
 }
+a:hover{
+  text-decoration: none;
+  background-color: rgba(233, 220, 204, 0.932);
+}
 
 .flag-progress-bar {
   background-color: aqua;
@@ -91,6 +95,7 @@ li {
   border: 4px solid  #dd0000 ;
   background-color: #dd0000 ;
   color: #f0f0f0;
+  cursor: pointer;
 }
 
 
