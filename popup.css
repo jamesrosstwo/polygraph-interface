@@ -31,7 +31,7 @@ span {
   background-color: #f0f0f0;
 }
 .container {
-  width: 300px;
+  width:auto;
   padding: 10px;
   text-align: center;
 }
@@ -70,6 +70,7 @@ a:hover{
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  width: 300px;
 }
 
 
@@ -77,6 +78,7 @@ a:hover{
   display:inline-block;
   width:auto;
   padding: 4px 10px;
+  margin:0 25px 5px 25px;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
