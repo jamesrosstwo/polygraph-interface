@@ -55,12 +55,20 @@ analyze.onclick = function add_flagged() {
         videoID: url.substring(begin+2, end), // youtube video id
         lang: "en", // default: `en`
       }).then(function (captions) {
-        console.log(
-          captions.reduce((map, next) => {
+
+        const result = JSON.stringify(captions.reduce((map, next) => {
             map[next["start"]] = next["text"].replaceAll("\n", " ");
             return map;
-          }, {})
-        );
+          }, {}));
+        // const req = new Request("https://httpbin.org/post", {method: 'POST', body: "hi"});
+        fetch("https://httpbin.org/post", {
+          method: "POST",
+          body: result, 
+          headers:{
+            "content-type":"text/plain"
+          }
+        }).then(response =>{return response.json()})
+          .then(res => {console.log(res)});
       });
     }
   );
