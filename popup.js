@@ -3,6 +3,8 @@ var saveNote = document.querySelector('#save-note');
 var checkFacts = document.querySelector('#check-facts');
 var deleteNotes = document.querySelector('#delete-notes');
 var notesField = document.querySelector('#note-value');
+var analyzeButton = document.querySelector("#analyze");
+
 let url = ""
 chrome.tabs.query({
   active: true,
@@ -30,16 +32,69 @@ chrome.tabs.query({
 });
 
 const json_obj = {
-  1: {
-    timestamp: 50,
-    statement: "The sky is light",
-  },
-  2: {
-    timestamp: 75,
-    statement: "The Earth is flat",
-  },
+  "1": {
+    "original_claim": "When I was vice president, violent crime fell 15% in this country. The murder rate now is up 26% across the nation this year under Donald Trump.",
+    "textual_rating": "Half True",
+    "url": "https://www.politifact.com/factchecks/2020/sep/03/joe-biden/fact-checking-joe-bidens-comparison-violent-crime-/",
+    "title": "Fact-checking Joe Biden's comparison of violent crime, murders data",
+},
+  "3": {
+    "original_claim": "When I was vice president, violent crime fell 15% in this country. The murder rate now is up 26% across the nation this year under Donald Trump.",
+    "textual_rating": "Half True",
+    "url": "https://www.politifact.com/factchecks/2020/sep/03/joe-biden/fact-checking-joe-bidens-comparison-violent-crime-/",
+    "title": "Fact-checking Joe Biden's comparison of violent crime, murders data",
+},
+"4": {
+  "original_claim": "When I was vice president, violent crime fell 15% in this country. The murder rate now is up 26% across the nation this year under Donald Trump.",
+  "textual_rating": "Half True",
+  "url": "https://www.politifact.com/factchecks/2020/sep/03/joe-biden/fact-checking-joe-bidens-comparison-violent-crime-/",
+  "title": "Fact-checking Joe Biden's comparison of violent crime, murders data",
+},
+"5": {
+  "original_claim": "When I was vice president, violent crime fell 15% in this country. The murder rate now is up 26% across the nation this year under Donald Trump.",
+  "textual_rating": "Half True",
+  "url": "https://www.politifact.com/factchecks/2020/sep/03/joe-biden/fact-checking-joe-bidens-comparison-violent-crime-/",
+  "title": "Fact-checking Joe Biden's comparison of violent crime, murders data",
+},
+"7": {
+  "original_claim": "When I was vice president, violent crime fell 15% in this country. The murder rate now is up 26% across the nation this year under Donald Trump.",
+  "textual_rating": "Half True",
+  "url": "https://www.politifact.com/factchecks/2020/sep/03/joe-biden/fact-checking-joe-bidens-comparison-violent-crime-/",
+  "title": "Fact-checking Joe Biden's comparison of violent crime, murders data",
+},
+"9": {
+  "original_claim": "When I was vice president, violent crime fell 15% in this country. The murder rate now is up 26% across the nation this year under Donald Trump.",
+  "textual_rating": "Half True",
+  "url": "https://www.politifact.com/factchecks/2020/sep/03/joe-biden/fact-checking-joe-bidens-comparison-violent-crime-/",
+  "title": "Fact-checking Joe Biden's comparison of violent crime, murders data",
+},
 };
 
+var Entry =function(time,statement,rating){
+  this.time = time;
+  this.statement = statement;
+  this.rating = rating;
+}
+
+// var time_DOM = document.getElementsByClassName("res_list").appendChild()
+
+
+var addEntries = function(results){
+  for (var [key, value] of Object.entries(json_obj)){
+    // newEntry = new Entry(key, json_obj.key.statement, value.rating)
+    // var li = document.getElementsByClassName("li");
+    // li.appendChild(document.createTextNode(keyVal))
+    var html = '<li class="result" onclick="location_href='+
+    value["url"]+'"><p class="time_statement">At second '+
+    key +': <span>'+value["original_claim"] + ' </span><br><p class="rating">Rating:<a href = "'+value["url"]+'"> <span>'+value["textual_rating"]+'</p></a></li>'
+
+
+    document.querySelector('.res_list').insertAdjacentHTML('beforeend', html)
+
+  } 
+  alert(value["url"])
+
+}
 analyze.onclick = function add_flagged() {
   // alert("hi");
   chrome.tabs.query(
@@ -68,7 +123,11 @@ analyze.onclick = function add_flagged() {
             "content-type":"text/plain"
           }
         }).then(response =>{return response.json()})
-          .then(res => {console.log(res)});
+          .then(res => {
+            var data = JSON.parse(res["data"]);
+            console.log(data);
+            addEntries(data);
+          });
       });
     }
   );
