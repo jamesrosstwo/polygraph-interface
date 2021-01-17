@@ -1,11 +1,33 @@
 var getSubtitles = require("youtube-captions-scraper").getSubtitles;
+var saveNote = document.querySelector('#save-note');
+var checkFacts = document.querySelector('#check-facts');
+var deleteNotes = document.querySelector('#delete-notes');
+var notesField = document.querySelector('#note-value');
+let url = ""
+chrome.tabs.query({
+  active: true,
+  lastFocusedWindow: true
+}, tabs => {
+   url = tabs[0].url;
+   var tab = tabs[0];
 
-var saveNote = document.querySelector("#save-note");
-var checkFacts = document.querySelector("#check-facts");
-var deleteNotes = document.querySelector("#delete-notes");
-var notesField = document.querySelector("#note-value");
+   if (url.includes('youtube.com')&&url.includes('v=')){
+    function redBtn (results){
+      document.querySelector("#analyze").className = "btn btn-danger"
+  }
 
-// Populate Notes From Page
+  chrome.tabs.executeScript(tab.id, {
+      code: 'document.querySelector("#analyze").classList'
+    }, redBtn);
+} else {
+  function greyOutBtn (results){
+      document.querySelector("#analyze").className = "btn btn-secondary"
+  }
+  chrome.tabs.executeScript(tab.id, {
+      code: 'document.querySelector("#analyze").classList'
+    }, greyOutBtn);
+}
+});
 
 const json_obj = {
   1: {
@@ -27,11 +49,8 @@ analyze.onclick = function add_flagged() {
     },
     (tabs) => {
       let url = tabs[0].url;
-      if (!url.includes("youtube.com")) return;
       var begin = tabs[0].url.indexOf("v=");
-      if (begin == -1) return;
       var end = tabs[0].url.indexOf("&", begin);
-      alert(url.substring(begin, end));
       getSubtitles({
         videoID: url.substring(begin+2, end), // youtube video id
         lang: "en", // default: `en`
@@ -45,24 +64,4 @@ analyze.onclick = function add_flagged() {
       });
     }
   );
-  // var progress_bar = document.getElementsByClassName("ytp-progress-bar");
-
-  for (var keyVal in json_obj) {
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(keyVal));
-    var myFlag = document.createElement("div");
-  }
 };
-
-///////////////////////////////////////////////////////////////////////////
-//   // Grab the notes for the page
-//   chrome.storage.local.get(url, notes => {
-//     if (notes[url]) {
-//       for (var i = 0; i < notes[url].length; i++) {
-//         var li = document.createElement("li");
-//         li.appendChild(document.createTextNode(notes[url][i]));
-//         notesList.appendChild(li);
-
-//       }
-//     }
-//   });
