@@ -59,27 +59,44 @@ var Entry =function(time,statement,rating){
   this.rating = rating;
 }
 
+var open_link= function(){ 
+  popup(this.id)
+  document.querySelector('.result').onclick(function(){
+  window.location = this.id } )}
+
 // var time_DOM = document.getElementsByClassName("res_list").appendChild()
+
+  chrome.tabs.query({
+    active: true,
+    lastFocusedWindow: true
+    }, tabs => {
+      var tab = tabs[0];
+      chrome.tabs.executeScript(tab.id, {
+        code: 'document.querySelector(".result")'
+      }, open_link);
+});
+// $("p").click(function(){
+//   alert("The paragraph was clicked.");
+// });
+
 
 
 var addEntries = function(results){
+  
+  document.querySelector('.res_list').innerHTML = "";
   for (var [key, value] of Object.entries(json_obj)){
-    // newEntry = new Entry(key, json_obj.key.statement, value.rating)
-    // var li = document.getElementsByClassName("li");
-    // li.appendChild(document.createTextNode(keyVal))
 
-
-
-    var html = '<li> <a class="result" id="'+key+'" href='+value.fact_url+'"+><p class="time_statement">At second '+key +': <span>'+value.statement + ' </span><br><p class="rating">Rating: <span>'+value.rating+'</p></a></li>'
+    var html = '<li> <a class="result" id="'+value.url+'" href='+value.fact_url+'"+><p class="time_statement">At second '+key +': <span>'+value.statement + ' </span><br><p class="rating">Rating: <span>'+value.rating+'</p></a></li>'
 
     
     document.querySelector('.res_list').insertAdjacentHTML('beforeend', html)
     // alert (value.statement+"--------------------"+html)
     // document.querySelector('.res_list').appendChild('beforeend', newHtml);
   } 
+}
   
   // alert(document.querySelector('.res_list').html(newHtml))
-}
+
 
 
 analyze.onclick = function add_flagged(){
