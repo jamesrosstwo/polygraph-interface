@@ -2,16 +2,48 @@ var saveNote = document.querySelector('#save-note');
 var checkFacts = document.querySelector('#check-facts');
 var deleteNotes = document.querySelector('#delete-notes');
 var notesField = document.querySelector('#note-value');
-
-
+let url = ""
 // Populate Notes From Page
 chrome.tabs.query({
   active: true,
   lastFocusedWindow: true
 }, tabs => {
-  let url = tabs[0].url;
+   url = tabs[0].url;
+   var tab = tabs[0];
 
-})
+   /////////////////////////////////////////
+   if (url.includes('youtube')===false){
+    function greyOutBtn (results){
+        document.querySelector("#analyze").className = "btn btn-secondary"
+    }
+    chrome.tabs.executeScript(tab.id, {
+        code: 'document.querySelector("#analyze").classList'
+      }, greyOutBtn);
+} else {
+      function redBtn (results){
+        document.querySelector("#analyze").className = "btn btn-danger"
+    }
+
+    chrome.tabs.executeScript(tab.id, {
+        code: 'document.querySelector("#analyze").classList'
+      }, redBtn);
+
+}
+  ///////////////////////////////////////////
+
+
+
+
+// chrome.tabs.executeScript({
+//   code: 'document.getElementById("btn").innerHTML'
+// }, function(results) {
+//     alert(results[0])
+//   // alert(document.getElementsByClassName('btn').classList = results[0])
+  
+// });
+// })
+
+
 
 const json_obj = {
     1 : {
@@ -24,11 +56,13 @@ const json_obj = {
     },
 }
 
+
 analyze.onclick = function add_flagged(){
-  alert(window.location.url)
-
+  
+  
   var progress_bar = document.getElementsByClassName("ytp-progress-bar")
-
+  
+  }
 
   for (var keyVal in json_obj){
     var li = document.createElement("li");
@@ -36,7 +70,7 @@ analyze.onclick = function add_flagged(){
     var myFlag = document.createElement("div");
 
   } 
-}
+
 
 ///////////////////////////////////////////////////////////////////////////
 //   // Grab the notes for the page
