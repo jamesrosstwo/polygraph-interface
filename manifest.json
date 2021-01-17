@@ -2,7 +2,7 @@
   "name": "Polygraph",
   "version": "0.0.1",
   "description": "Check false statements",
-  "permissions": ["tabs","activeTab","declarativeContent", "storage"],
+  "permissions": ["tabs","activeTab","declarativeContent", "storage", "http://127.0.0.1:5000/", "http://127.0.0.1:5000/analyze"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
