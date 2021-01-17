@@ -68,9 +68,10 @@ var addEntries = function(results){
     newHtml = html.replace('%time%,',keyVal)
     newHtml = newHtml.replace('%statement%,',keyVal.statement)
     newHtml = newHtml.replace('%rating%,',keyVal.rating)
+    document.querySelector('.res_list').insertAdjacentHTML('beforeend', newHtml)
     // document.querySelector('.res_list').appendChild('beforeend', newHtml);
   } 
-  alert(typeof(document.querySelector('.results')))
+  // alert(document.querySelector('.res_list').html(newHtml))
 }
 
 
