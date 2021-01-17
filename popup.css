@@ -56,7 +56,7 @@ li {
 }
 
 .result{
-  display:inline-block;
+  display:block;
   margin:3px 0;
   background-color:#fff;
   padding:3px 0;

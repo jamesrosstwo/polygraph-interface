@@ -37,7 +37,7 @@ chrome.tabs.query({
 
 })
 
-const json_obj = {
+var json_obj = {
     13 : {
       statement: "The sky is light",
       rating:"half-true"
@@ -60,17 +60,19 @@ var Entry =function(time,statement,rating){
 
 
 var addEntries = function(results){
-  for (var keyVal in json_obj){
-    newEntry = new Entry(keyVal, keyVal.statement, keyVal.rating)
+  for (var [key, value] of Object.entries(json_obj)){
+    // newEntry = new Entry(key, json_obj.key.statement, value.rating)
     // var li = document.getElementsByClassName("li");
     // li.appendChild(document.createTextNode(keyVal))
-    var html = '<li class=result><p class="time_statement">%time% : <span>%statement%</span><br><p class="rating">Rating: <span>%rating%</p></li>'
-    newHtml = html.replace('%time%,',keyVal)
-    newHtml = newHtml.replace('%statement%,',keyVal.statement)
-    newHtml = newHtml.replace('%rating%,',keyVal.rating)
+    var html = '<li class=result><p class="time_statement"> %time% : <span> %statement% </span><br><p class="rating">Rating: <span> %rating% </p></li>'
+    newHtml = html.replace('%time%,',key)
+    newHtml = newHtml.replace('%statement%,',value.statement)
+    newHtml = newHtml.replace('%rating%,',value.statement)
     document.querySelector('.res_list').insertAdjacentHTML('beforeend', newHtml)
+    alert (value.statement+"--------------------"+newHtml)
     // document.querySelector('.res_list').appendChild('beforeend', newHtml);
   } 
+  
   // alert(document.querySelector('.res_list').html(newHtml))
 }
 
