@@ -45,7 +45,8 @@ li {
 }
 a:hover{
   text-decoration: none;
-  background-color: rgba(129, 124, 123, 0.336);
+  border:1px solid rgba(129, 124, 123, 0.336);
+  background-color: #fff;
 }
 
 .flag-progress-bar {
