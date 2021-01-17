@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="popup.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
     </style>
   </head>
@@ -12,21 +14,30 @@
       <img src="icon.jpg">
     </div> -->
     <div id="notes-container">
-      <h6>Polygraph</h6>
-      <ul id="notes"></ul>
+      <h2>Polygraph</h2>
+      <!-- <ul id="notes"></ul> -->
     </div>
 
     <!-- style="transform:translateX(212.702px)"> -->
 
     <div class="container">
       <!-- <textarea class="form-control" id="note-value"></textarea> -->
-      </br>
-      <button class="btn " id="analyze">Analyze</button>
-      <div class="timestamps">
+      <div class="button button-red" id="analyze">
+        <h3>Analyze</h3>
+      </div>
+      <div class="results">
+          <ul class="res_list">
+            <li class=result><p class="time_statement">10 seconds: <span>"The Earth is flat".</span><br>
+                <p class="rating">Rating: <span>Half-True </p></li>
+            <li class=result><p class="time_statement">10 seconds: <span>"The Earth is flat".</span><br>
+                <p class="rating">Rating: <span>Half-True </p></li>
+            <li class=result><p class="time_statement">10 seconds: <span>"The Earth is flat".</span><br>
+                <p class="rating">Rating: <span>Half-True </p></li>
+          </ul>
 
       </div>
-
-      <script src="popup.js"></script>
     </div>
+    <script src="popup.js"></script>
+    
   </body>
 </html>

@@ -2,6 +2,8 @@ var saveNote = document.querySelector('#save-note');
 var checkFacts = document.querySelector('#check-facts');
 var deleteNotes = document.querySelector('#delete-notes');
 var notesField = document.querySelector('#note-value');
+var analyzeButton = document.querySelector("#analyze");
+
 let url = ""
 // Populate Notes From Page
 chrome.tabs.query({
@@ -13,15 +15,17 @@ chrome.tabs.query({
 
    /////////////////////////////////////////
    if (url.includes('youtube')===false){
+
     function greyOutBtn (results){
-        document.querySelector("#analyze").className = "btn btn-secondary"
+        
+        analyzeButton.className = "button button-grey"
     }
     chrome.tabs.executeScript(tab.id, {
         code: 'document.querySelector("#analyze").classList'
       }, greyOutBtn);
 } else {
       function redBtn (results){
-        document.querySelector("#analyze").className = "btn btn-danger"
+        analyzeButton.className = "button button-red"
     }
 
     chrome.tabs.executeScript(tab.id, {
@@ -31,56 +35,58 @@ chrome.tabs.query({
 }
   ///////////////////////////////////////////
 
-
-
-
-// chrome.tabs.executeScript({
-//   code: 'document.getElementById("btn").innerHTML'
-// }, function(results) {
-//     alert(results[0])
-//   // alert(document.getElementsByClassName('btn').classList = results[0])
-  
-// });
-// })
-
-
+})
 
 const json_obj = {
-    1 : {
-      timestamp: 50,
-      statement: "The sky is light"
+    13 : {
+      statement: "The sky is light",
+      rating:"half-true"
     },
-    2:{
-      timestamp: 75,
-      statement: "The Earth is flat"
+    20:{
+      statement: "The Earth is flat",
+      rating: "false"
     },
+}
+
+
+
+var Entry =function(time,statement,rating){
+  this.time = time;
+  this.statement = statement;
+  this.rating = rating;
+}
+
+// var time_DOM = document.getElementsByClassName("res_list").appendChild()
+
+
+var addEntries = function(results){
+  for (var keyVal in json_obj){
+    newEntry = new Entry(keyVal, keyVal.statement, keyVal.rating)
+    // var li = document.getElementsByClassName("li");
+    // li.appendChild(document.createTextNode(keyVal))
+    var html = '<li class=result><p class="time_statement">%time% : <span>%statement%</span><br><p class="rating">Rating: <span>%rating%</p></li>'
+    newHtml = html.replace('%time%,',keyVal)
+    newHtml = newHtml.replace('%statement%,',keyVal.statement)
+    newHtml = newHtml.replace('%rating%,',keyVal.rating)
+    // document.querySelector('.res_list').appendChild('beforeend', newHtml);
+  } 
+  alert(typeof(document.querySelector('.results')))
 }
 
 
 analyze.onclick = function add_flagged(){
   
-  
-  var progress_bar = document.getElementsByClassName("ytp-progress-bar")
-  
-  }
-
-  for (var keyVal in json_obj){
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(keyVal))
-    var myFlag = document.createElement("div");
-
-  } 
+  chrome.tabs.query({
+    active: true,
+    lastFocusedWindow: true
+    }, tabs => {
+      var tab = tabs[0];
+      chrome.tabs.executeScript(tab.id, {
+        code: 'document.querySelector(".results")'
+      }, addEntries);
 
 
-///////////////////////////////////////////////////////////////////////////
-//   // Grab the notes for the page
-//   chrome.storage.local.get(url, notes => {
-//     if (notes[url]) {
-//       for (var i = 0; i < notes[url].length; i++) {
-//         var li = document.createElement("li");
-//         li.appendChild(document.createTextNode(notes[url][i]));
-//         notesList.appendChild(li);
-
-//       }
-//     }
-//   });
+      // addEntries
+    }
+  )   
+}
