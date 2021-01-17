@@ -39,12 +39,15 @@ chrome.tabs.query({
 
 var json_obj = {
     13 : {
-      statement: "The sky is light",
-      rating:"half-true"
+      statement: "When I was vice president, violent crime fell 15% in this country. The murder rate now is up 26% across the nation this year under Donald Trump.",
+      rating:"half-true",
+      fact_url:"https://www.politifact.com/factchecks/2020/sep/03/joe-biden/fact-checking-joe-bidens-comparison-violent-crime-/"
+      
     },
     20:{
       statement: "The Earth is flat",
-      rating: "false"
+      rating: "false",
+      fact_url:"https://www.politifact.com/factchecks/2020/sep/03/joe-biden/fact-checking-joe-bidens-comparison-violent-crime-/"
     },
 }
 
@@ -64,14 +67,19 @@ var addEntries = function(results){
     // newEntry = new Entry(key, json_obj.key.statement, value.rating)
     // var li = document.getElementsByClassName("li");
     // li.appendChild(document.createTextNode(keyVal))
-    var html = '<li class=result><p class="time_statement"> %time% : <span> %statement% </span><br><p class="rating">Rating: <span> %rating% </p></li>'
-    newHtml = html.replace('%time%,',key)
+
+
+
+    var html = '<li class="result" href="'+value.fact_url+'"+><p class="time_statement">At second '+key +': <span>'+value.statement + ' </span><br><p class="rating">Rating: <span>'+value.rating+'</p></li>'
+
+    newHtml = html.replace('%time%,', key)
     newHtml = newHtml.replace('%statement%,',value.statement)
-    newHtml = newHtml.replace('%rating%,',value.statement)
-    document.querySelector('.res_list').insertAdjacentHTML('beforeend', newHtml)
-    alert (value.statement+"--------------------"+newHtml)
+    newHtml = newHtml.replace('%rating%,',value.rating)
+    document.querySelector('.res_list').insertAdjacentHTML('beforeend', html)
+    // alert (value.statement+"--------------------"+html)
     // document.querySelector('.res_list').appendChild('beforeend', newHtml);
   } 
+  alert(value.fact_url)
   
   // alert(document.querySelector('.res_list').html(newHtml))
 }
