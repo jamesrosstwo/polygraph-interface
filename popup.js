@@ -87,7 +87,8 @@ var addEntries = function(results){
   } 
 }
 analyze.onclick = function add_flagged() {
-  // alert("hi");
+  document.getElementById("analyze").children[0].innerHTML = "Analyzing...";
+
   chrome.tabs.query(
     {
       active: true,
@@ -116,6 +117,8 @@ analyze.onclick = function add_flagged() {
         }).then(response =>{console.log(response); return response.json()})
           .then(res => {
             addEntries(res);
+            document.getElementById("analyze").children[0].innerHTML = "Done!"
+            document.getElementById("analyze").disabled = true;
           });
       });
     }
