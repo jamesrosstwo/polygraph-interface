@@ -42,21 +42,49 @@ var Entry =function(time,statement,rating){
 // var time_DOM = document.getElementsByClassName("res_list").appendChild()
 
 
+
+
+// From https://stackoverflow.com/questions/3733227/javascript-seconds-to-minutes-and-seconds
+function fancyTimeFormat(duration)
+{   
+    // Hours, minutes and seconds
+    var hrs = ~~(duration / 3600);
+    var mins = ~~((duration % 3600) / 60);
+    var secs = ~~duration % 60;
+
+    // Output like "1:01" or "4:03:59" or "123:03:59"
+    var ret = "";
+
+    if (hrs > 0) {
+        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    return ret;
+}
+
+
 var addEntries = function(results){
   for (var [key, value] of Object.entries(results)){
     // newEntry = new Entry(key, json_obj.key.statement, value.rating)
     // var li = document.getElementsByClassName("li");
     // li.appendChild(document.createTextNode(keyVal))
-    var html = '<li class="result" onclick="location_href='+
-    value["url"]+'"><p class="time_statement">At second '+
-    key +': <span>'+value["original_claim"] + ' </span><br><p class="rating">Rating:<a href = "'+value["url"]+'"> <span>'+value["textual_rating"]+'</p></a></li>'
-
+        
+    var html = `
+    <li class="result polygraph-false-claim">
+      <h4 class="polygraph-false-claim-header">${value["textual_rating"]} Statement</h4>
+      <div class="polygraph-false-claim-inner">
+        <p class="polygraph-time-statement">The claim at ${fancyTimeFormat(key)} has been shown to be ${value["textual_rating"].toLowerCase()}.</p>
+        <br>
+        <p class="polygraph-article-link"> To learn more, visit <a href="${value["url"]}">${value["title"]}</a></p>
+      </div>
+    </li>
+    `
 
     document.querySelector('.res_list').insertAdjacentHTML('beforeend', html)
 
   } 
-  alert(value["url"])
-
 }
 analyze.onclick = function add_flagged() {
   // alert("hi");
