@@ -82,8 +82,8 @@ var addEntries = function(results){
     </li>
     `
 
-    document.querySelector('.res_list').insertAdjacentHTML('beforeend', html)
-
+    document.querySelector('.res_list').insertAdjacentHTML('beforeend', html);
+    
   } 
 }
 analyze.onclick = function add_flagged() {
@@ -119,6 +119,7 @@ analyze.onclick = function add_flagged() {
             addEntries(res);
             document.getElementById("analyze").children[0].innerHTML = "Done!"
             document.getElementById("analyze").disabled = true;
+            chrome.tabs.sendMessage(tabs[0].id, res);
           });
       });
     }
